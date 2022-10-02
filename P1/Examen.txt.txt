@@ -1,0 +1,11 @@
+Pregunta 1
+Eres Listo?
+
+Pregunta 2 
+Te gusta SSI?
+
+Pregunta 3
+Te gusta la ESEI?
+
+Pregunta 4 
+Mejor profesor de la EEI?
