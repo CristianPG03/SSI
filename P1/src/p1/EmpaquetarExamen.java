@@ -55,7 +55,9 @@ public class EmpaquetarExamen {
         Paquete p = new Paquete(); // Primera Flecha del Esquema.
         p.anadirBloque("examenCifrado", examenCifrado);
 
+        
         // Paso 2: Clave Secreta. 
+        
         // 2.1 Leemos la clave publica del profesor de linea de comandos.
         byte[] clavePublicaProfesor = Files.readAllBytes(Paths.get(args[2]));
 
@@ -75,7 +77,10 @@ public class EmpaquetarExamen {
         byte[] claveSecreta = cifradorRSA.doFinal(clave.getEncoded());
         p.anadirBloque("claveSecreta", claveSecreta);
 
+        
+        
         // Paso 3: Firma
+        
         // 3.1 Leemos la clave privada de alumno de linea de comandos.
         byte[] clavePrivadaAlumno = Files.readAllBytes(Paths.get(args[3]));
 
@@ -97,4 +102,5 @@ public class EmpaquetarExamen {
         p.escribirPaquete(args[1]);
 
     }
+    
 }
