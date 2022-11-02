@@ -4,6 +4,7 @@
  */
 package p1;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -44,15 +45,15 @@ public class DesempaquetarExamen {
         Security.addProvider(new BouncyCastleProvider()); // Cargar el provider BC
 
         Paquete p = new Paquete();
-       // p.leerPaquete(args[0]);
+        p.leerPaquete(args[0]);
         List<String> nombres = p.getNombresBloque();
         
         //Recuperamos las variables del paquete.
-        byte[] examen = p.getContenidoBloque(nombres.get(0));
-        byte[] claveSecreta = p.getContenidoBloque(nombres.get(1));
-        byte[] firma = p.getContenidoBloque(nombres.get(2));
-        byte[] fecha = p.getContenidoBloque(nombres.get(3));
-        byte[] sello = p.getContenidoBloque(nombres.get(4));
+        byte[] examen = p.getContenidoBloque("examenCifrado");
+        byte[] claveSecreta = p.getContenidoBloque("claveSecreta");
+        byte[] firma = p.getContenidoBloque("firma");
+       // byte[] fecha = p.getContenidoBloque(nombres.get(3));
+       // byte[] sello = p.getContenidoBloque(nombres.get(4));
 
         // Crear cifrador RSA
         Cipher cifradorRSA = Cipher.getInstance("RSA", "BC");
@@ -97,7 +98,8 @@ public class DesempaquetarExamen {
             //Desciframos el examen con la KS y DES
             cifradorDES.init(Cipher.DECRYPT_MODE, claveSecretaDES2); 
             byte[] examenDescifrado = cifradorDES.doFinal(examen);// Ciframos el examen con el cifrador.
-            System.out.println(Arrays.toString(examenDescifrado));
+            FileOutputStream out = new FileOutputStream(args[1]);
+            out.write(examenDescifrado);
             
          } else {
             System.out.println("No coinciden...");
